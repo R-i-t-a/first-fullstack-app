@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article v-if="whale">
       <h3> DETAILS </h3>
       <p> {{ whale.species }} </p>
       <p> {{ whale.weight }} </p>

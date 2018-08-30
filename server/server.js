@@ -14,12 +14,12 @@ const databaseUrl = 'postgres://localhost:5432/sea_mammals';
 const client = new Client(databaseUrl);
 client.connect();
 
-function readData() {
-  const raw = fs.readFileSync(dataPath);
-  const data = JSON.parse(raw); 
+// function readData() {
+//   const raw = fs.readFileSync(dataPath);
+//   const data = JSON.parse(raw); 
   
-  return data;
-}
+//   return data;
+// }
 
 app.get('/api/whales', (req, res) => {
   client.query(`

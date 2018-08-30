@@ -1,7 +1,7 @@
 const pg = require('pg');
 const Client = pg.Client;
 
-const databaseURL = 'postgres://localhost:5432/sea_mammals';
+const databaseUrl = 'postgres://localhost:5432/sea_mammals';
 
 const client = new Client(databaseUrl);
 
