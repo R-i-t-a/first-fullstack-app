@@ -33,7 +33,7 @@ export default {
   },
   components: {
     Whale,
-    AddWhale
+    AddWhale,
   },
   methods: {
     handleAdd(whale) {
@@ -47,5 +47,8 @@ export default {
 </script>
 
 <style>
+img {
+  width: 400px;
+}
 
 </style>

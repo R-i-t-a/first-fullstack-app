@@ -1,13 +1,16 @@
 <template>
   <article>
-      <h3> {{ whale.species }} </h3>
-      <p> {{ whale.weight }} </p>
+      <router-link :to="`/whales/${whale.id}`">
+        <h3> {{ whale.species }} </h3>
+      </router-link>
   </article>
 </template>
 
 <script>
 export default {
-  props: ['whale']
+  props: {
+    whale: Object
+  }
 };
 </script>
 
