@@ -1,20 +1,20 @@
-const pg = require('pg');
-const Client = pg.Client;
-const databaseUrl = 'postgres://localhost:5432/sea_mammals';
+const client = require('../db-client');
 
-const client = new Client(databaseUrl);
+client.query(`
+  CREATE TABLE IF NOT EXISTS oceans (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(256) NOT NULL
+  );
+  
+  CREATE TABLE IF NOT EXISTS whales (
+    id SERIAL PRIMARY KEY,
+    species VARCHAR(256) NOT NULL,
+    weight VARCHAR(256),
+    url VARCHAR(1024),
+    ocean_id INTEGER NOT NULL REFERENCES oceans(id)
+  );
+`)
 
-client.connect()
-  .then(() => {
-    return client.query(`
-      CREATE TABLE IF NOT EXISTS whales (
-        id SERIAL PRIMARY KEY,
-        species VARCHAR(256) NOT NULL,
-        weight VARCHAR(256),
-        url VARCHAR(1024)
-      );
-    `);        
-  })
   .then(
     () => console.log('create tables complete'),
     err => console.log(err)

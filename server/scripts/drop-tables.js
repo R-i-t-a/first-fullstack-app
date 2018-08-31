@@ -1,20 +1,13 @@
-const pg = require('pg');
-const Client = pg.Client;
+const client = require('../db-client');
 
-const databaseUrl = 'postgres://localhost:5432/sea_mammals';
-
-const client = new Client(databaseUrl);
-
-client.connect()
-  .then(() => {
-    return client.query(`
-    DROP TABLE IF EXISTS whales;
-    `);
-  })
-  .then(
-    () => console.log('drop tables complete'),
-    err => console.log(err)
-  )
-  .then(() => {
-    client.end();
-  });
+client.query(`
+  DROP TABLE IF EXISTS whales;
+  DROP TABLE IF EXISTS oceans;
+  `)
+    .then(
+      () => console.log('drop tables complete'),
+      err => console.log(err)
+    )
+    .then(() => {
+      client.end();
+    });
