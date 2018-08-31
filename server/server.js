@@ -8,32 +8,24 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-const pg = require('pg');
-const Client = pg.Client;
-const databaseUrl = 'postgres://localhost:5432/sea_mammals';
-const client = new Client(databaseUrl);
-client.connect();
-
-// function readData() {
-//   const raw = fs.readFileSync(dataPath);
-//   const data = JSON.parse(raw); 
-  
-//   return data;
-// }
+const client = require('./db-client');
 
 app.get('/api/whales', (req, res) => {
   client.query(`
     SELECT
-      id,
-      species,
-      weight,
-      url
-    FROM whales;
-  `)
-    .then(result => {
-      res.send(result.rows);
-    })
-    .catch(err => console.log(err));
+      w.id,
+      w.species,
+      o.id as "oceanId",
+      o.name as ocean
+    FROM WHALES as w
+    JOIN oceans as o
+    ON w.ocean_id = o.id
+    ORDER by w.species;
+    `)
+      .then(result => {
+        res.send(result.rows);
+      })
+      .catch(err => console.log(err));
 });
 
 app.get('/api/whales/:id', (req, res) => {
@@ -41,6 +33,7 @@ app.get('/api/whales/:id', (req, res) => {
     SELECT
       id,
       species,
+      ocean_id as "oceanId",
       weight,
       url
     FROM whales
@@ -60,11 +53,11 @@ app.post('/api/whales', (req, res) => {
   const body = req.body;
 
   client.query(`
-    INSERT INTO whales (species, weight, url)
-    VALUES ($1, $2, $3)
+    INSERT INTO whales (species, ocean_id, weight, url)
+    VALUES ($1, $2, $3, $4)
     RETURNING *;
     `,
-  [body.species, body.weight, body.url]
+  [body.species, body.oceanId, body.weight, body.url]
   )
     .then(result => {
       res.send(result.rows[0]);
@@ -72,5 +65,44 @@ app.post('/api/whales', (req, res) => {
     .catch(err => console.log(err));
 });
 
+app.put('/api/whales/:id', (req, res) => {
+  const body = req.body;
+
+  client.query(`
+    update whales
+    set
+      species = $1,
+      ocean_id = $2,
+      weight = $3,
+      url = $4
+    where id = $6
+    returning *;
+    `,
+  [body.species, body.oceanId, body.weight, body.url, req.params.id]
+  ).then(result => {
+  res.send(result.rows[0]);
+});
+});
+
+app.delete('/api/whales/:id', (req, res) => {
+  client.query(`
+    delete from whales where id=$1;
+  `,
+[req.params.id]
+).then(() => {
+  res.send({ removed: true });
+});
+});
+
+app.get('/api/oceans', (req, res) => {
+  client.query(`
+    SELECT *
+    FROM oceans;
+  `)
+    .then(result => {
+      res.send(result.rows);
+    });
+});
+
 const PORT = 3000;
-app.listen(PORT, () => console.log('app running...'));
+app.listen(3000, () => console.log('app running on', PORT));

@@ -18,6 +18,11 @@
             </label>
         </p>
         <p>
+            <label>
+                Ocean: <input v-model="whale.oceanId" placeholder="Oceans where these are found">
+            </label>
+        </p>
+        <p>
             <button>Submit</button>
         </p>
       </form>
