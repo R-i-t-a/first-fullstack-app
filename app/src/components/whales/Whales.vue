@@ -3,19 +3,21 @@
    <h2>Whales</h2> 
     <p v-if="!whales">Loading whales...</p>
     <ul v-else class="list">
-        <Whale
-        v-for="(whale, index) in whales"
-          :key="index"
-          :whale="whale"
-        />
+      <li
+          v-for="whale in whales"
+          :key="whale.id">
+        <router-link :to="`/whales/${whale.id}`">
+          {{whale.species}} - {{whale.ocean}}
+        </router-link>
+      </li>
     </ul>
-   <AddWhale :on-add="handleAdd"/>
+    <p>
+      <router-link to="/whales/add">Add a new whale</router-link>
+    </p>
   </section> 
 </template>
 
 <script>
-import Whale from './Whale.vue';
-import AddWhale from './AddWhale.vue';
 import api from '../../services/api';
 
 export default {
@@ -27,23 +29,13 @@ export default {
   created() {
     api.getWhales()
       .then(whales => {
-        console.log('whales');
+        console.log('whales', whales);
         this.whales = whales;
       });
-  },
-  components: {
-    Whale,
-    AddWhale,
-  },
-  methods: {
-    handleAdd(whale) {
-      return api.addWhale(whale)
-        .then(saved => {
-          this.whales.push(saved);
-        });
-    }
   }
 };
+
+
 </script>
 
 <style>

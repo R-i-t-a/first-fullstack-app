@@ -24,6 +24,7 @@ app.get('/api/whales', (req, res) => {
     `)
       .then(result => {
         res.send(result.rows);
+        console.log(result);
       })
       .catch(err => console.log(err));
 });

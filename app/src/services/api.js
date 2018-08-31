@@ -10,7 +10,7 @@ export default {
       .then(response => response.json()); 
   },
 
-  getWhaleDetail(id) {
+  getWhale(id) {
     return fetch(`${WHALES_URL}/${id}`, {
       headers: { 'Content-Type': 'application/json' }
     })

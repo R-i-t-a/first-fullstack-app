@@ -8,16 +8,30 @@
     </header>
 
     <main>
-      <router-view></router-view>
+      <router-view :oceans="oceans"></router-view>
     </main>
   </div>
 </template>
 
 <script>
 
+import api from './services/api';
+
 export default {
-  name: 'app'
+  data() {
+    return {
+      oceans: null
+    };
+  },
+  created() {
+    api.getOceans()
+      .then(oceans => {
+        this.oceans = oceans;
+      });
+  },
 };
+
+
 </script>
 
 <style>
@@ -28,5 +42,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+body {
+  background-color: rgb(199, 237, 237);
+}
+
+ul {
+  list-style-type: none;
 }
 </style>
