@@ -6,7 +6,7 @@
       <p> Weight: {{ whale.weight }} </p>
       <img :src="whale.url">
       <p>
-        <button @click="handleRemove">Remove this whale.</button>
+        <button @click="handleRemove">Remove this whale</button>
       </p>
     </article>
     <WhaleForm

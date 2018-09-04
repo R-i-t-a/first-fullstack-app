@@ -1,17 +1,17 @@
 <template>
   <section>
-   <h2>Whales</h2> 
+   <h2>List of Whales</h2> 
     <p v-if="!whales">Loading whales...</p>
     <ul v-else class="list">
       <li
           v-for="whale in whales"
           :key="whale.id">
         <router-link :to="`/whales/${whale.id}`">
-          {{whale.species}} - {{whale.ocean}}
+          <p class="list">{{whale.species}} - {{whale.ocean}}</p>
         </router-link>
       </li>
     </ul>
-    <p>
+    <p class="add-whale">
       <router-link to="/whales/add">Add a new whale</router-link>
     </p>
   </section> 
@@ -40,7 +40,23 @@ export default {
 
 <style>
 img {
-  width: 400px;
+  width: 600px;
+}
+
+.list {
+  padding-bottom: 20px;
+  color: black;
+  font-size: 1.5em;
+}
+
+.list:hover {
+  color:blue;
+}
+
+.add-whale {
+  padding-bottom: 20px;
+  color: black;
+  font-size: 1.5em;
 }
 
 </style>

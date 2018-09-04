@@ -1,7 +1,10 @@
 <template>
   <section>
     <h2>Once again...Whales!</h2>
-    <router-link to="/whales">view whales</router-link>
+    <img src="../../assets/Whale_clipart.svg">
+    <div>
+      <router-link to="/whales"></router-link>
+    </div>
   </section>
 </template>
 

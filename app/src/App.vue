@@ -1,9 +1,12 @@
 <template>
   <div id="app">
+    <head>
+      <link href="https://fonts.googleapis.com/css?family=Fresca" rel="stylesheet">
+    </head>
     <header>
       <nav>
-        <router-link to="/">Home</router-link>
-        <router-link to="/whales">Whales</router-link> 
+        <router-link class="link" to="/">Home</router-link>
+        <router-link class="link" to="/whales">Whales</router-link> 
       </nav>
     </header>
 
@@ -40,7 +43,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
 
@@ -50,5 +52,39 @@ body {
 
 ul {
   list-style-type: none;
+  margin-left: 0; 
+  padding-left: 0;
 }
+
+li {
+  color: black;
+}
+
+h2 {
+  font-family: 'Fresca', sans-serif;
+  font-size: 5em;
+}
+
+h3 {
+  font-size: 2.5em;
+}
+
+nav {
+    margin: 0;
+    padding: 30px 10px 0 10px;
+    width: 100%;
+    background-color: #f1f1f1;
+    height: 50px;
+}
+
+.link {
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.link:hover {
+    background-color: rgb(199, 237, 237);
+}
+
 </style>
