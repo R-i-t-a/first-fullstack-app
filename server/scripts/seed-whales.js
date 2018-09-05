@@ -15,7 +15,7 @@ Promise.all(
         FROM oceans
         WHERE name = $4;
         `,
-      [whale.species, whale.weight, whale.url, whale.ocean]
+    [whale.species, whale.weight, whale.url, whale.ocean]
     );
   })
 )
