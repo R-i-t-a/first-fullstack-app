@@ -2,12 +2,12 @@ const client = require('../db-client');
 const oceans = require('./oceans.json');
 
 Promise.all(
-    oceans.map(ocean => {
-      return client.query(`
-        INSERT INTO oceans (name)
-        VALUES ($1);
-        `,
-      [ocean.name]
+  oceans.map(ocean => {
+    return client.query(`
+      INSERT INTO oceans (name)
+      VALUES ($1);
+      `,
+    [ocean.name]
     );
   })
 )

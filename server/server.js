@@ -22,11 +22,11 @@ app.get('/api/whales', (req, res) => {
     ON w.ocean_id = o.id
     ORDER by w.species;
     `)
-      .then(result => {
-        res.send(result.rows);
-        console.log(result);
-      })
-      .catch(err => console.log(err));
+    .then(result => {
+      res.send(result.rows);
+      console.log(result);
+    })
+    .catch(err => console.log(err));
 });
 
 app.get('/api/whales/:id', (req, res) => {
@@ -81,18 +81,18 @@ app.put('/api/whales/:id', (req, res) => {
     `,
   [body.species, body.oceanId, body.weight, body.url, req.params.id]
   ).then(result => {
-  res.send(result.rows[0]);
-});
+    res.send(result.rows[0]);
+  });
 });
 
 app.delete('/api/whales/:id', (req, res) => {
   client.query(`
     delete from whales where id=$1;
   `,
-[req.params.id]
-).then(() => {
-  res.send({ removed: true });
-});
+  [req.params.id]
+  ).then(() => {
+    res.send({ removed: true });
+  });
 });
 
 app.get('/api/oceans', (req, res) => {
